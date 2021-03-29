@@ -4,3 +4,4 @@ An interval timer built in React.js that will ping once each interval is up, so 
 ![Stretching Timer screenshot](/public/timer2.png)
 
 http://stretching-timer.herokuapp.com/
+# Stretching-Timer-2.0
