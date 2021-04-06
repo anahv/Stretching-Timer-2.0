@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import Button from "./Button"
+import Stepper from "./Stepper"
 
 function App() {
   const initialIntervals = 30;
@@ -18,19 +20,18 @@ function App() {
   const Timer = () => {
     useEffect(
       () => {
-          let interval = setInterval(function() {
-            if (isActive && timeLeft !== 0) {
-              setTimeLeft(timeLeft - 1)
-            } else if (isActive) {
-              setRemainingIntervals(remainingIntervals - 1)
-              setTimeLeft(intervalDuration)
-              bringAudio.play()
-            }
-          }, 1000);
+        let interval = setInterval(function () {
+          if (isActive && timeLeft !== 0) {
+            setTimeLeft(timeLeft - 1)
+          } else if (isActive) {
+            setRemainingIntervals(remainingIntervals - 1)
+            setTimeLeft(intervalDuration)
+            bringAudio.play()
+          }
+        }, 1000);
         if (!isActive && timeLeft !== 0) {
           clearInterval(interval);
-        } else if (isActive && timeLeft !== 0 && remainingIntervals == 0)
-        {
+        } else if (isActive && timeLeft !== 0 && remainingIntervals == 0) {
           setIsActive(false)
           setTimeLeft(0)
         }
@@ -42,10 +43,8 @@ function App() {
     if (remainingIntervals === 1) {
       if (timeLeft === 0) {
         bringAudio.play();
-        console.log("called 1");
       } else if (timeLeft < 6) {
         popAudio.play();
-        console.log("called 2 ");
       }
     }
 
@@ -71,18 +70,10 @@ function App() {
           </div>
         </div>
         <div className="buttons row">
-          <button id="start" className="button col-md-2" onClick={start}>
-            Start <i className="fa fa-play"> </i>
-          </button>
-          <button id="pause" className="button col-md-2" onClick={pauseTimer}>
-            Pause <i className="fa fa-pause"> </i>
-          </button>
-          <button
-            id="restart"
-            className="button col-md-2"
-            onClick={restartIntervals}>
-            Reset <i className="fa fa-repeat"> </i>
-          </button>
+          <Button id="start" title="Start" icon="play" onClick={start} data-testid="start"/>
+          <Button id="pause" title="Pause" icon="pause" onClick={pauseTimer} data-testid="pause"/>
+          <Button id="restart" title="Reset" icon="repeat" onClick={restartIntervals} data-testid="restart"/>
+          <Button id="testFail"/> 
         </div>
       </div>
     );
@@ -92,62 +83,28 @@ function App() {
     <div className="container-fluid">
       <div className="row header">
         <div className="col-md-12 ">
-          <h1> Stretching Timer </h1>
+          <h1> Interval Timer </h1>
         </div>
       </div>
 
       <div className="row">
-        <div className="col-md-3 offset-md-3">
-          <p id="intervalsTitle"> Intervals Left </p>
-          <h2 id="intervalsLeft">
-            {remainingIntervals}{" "}
-            / {totalIntervals}
-          </h2>
-          <div className="buttons">
-            <button
-              id="plus"
-              onClick={x => {
-                setTotalIntervals(totalIntervals - 1);
-                setRemainingIntervals(remainingIntervals - 1)
-              }}
-            >
-              <i className="fa fa-minus"> </i>
-            </button>
-            <button
-              id="plus"
-              onClick={x => {
-                setTotalIntervals(totalIntervals + 1)
-                setRemainingIntervals(remainingIntervals + 1)
-              }}
-            >
-              <i className="fa fa-plus"> </i>
-            </button>
-          </div>
-        </div>
 
-        <div className="col-md-3">
-          <p id="intervalsTitle"> Interval duration </p>
-          <h2 id="intervalsLeft">{intervalDuration}s</h2>
-          <div className="buttons">
-            <button
-              id="plus"
-              onClick={x => {
-                setIntervalDuration(intervalDuration - 5)
-                setTimeLeft(timeLeft - 5)
-              }}
-            >
-              <i className="fa fa-minus"> </i>
-            </button>
-            <button
-              id="plus"
-              onClick={x => {
-                setIntervalDuration(intervalDuration + 5)
-                setTimeLeft(timeLeft + 5)
-              }}>
-              <i className="fa fa-plus"> </i>
-            </button>
-          </div>
-        </div>
+        <Stepper title="Number of intervals" content={remainingIntervals} content2={totalIntervals} onPlus={x => {
+          setTotalIntervals(totalIntervals + 1)
+          setRemainingIntervals(remainingIntervals + 1)
+        }} onMinus={x => {
+          setTotalIntervals(totalIntervals - 1);
+          setRemainingIntervals(remainingIntervals - 1)
+        }} />
+
+        <Stepper title="Interval Duration" content={intervalDuration} onPlus={x => {
+          setIntervalDuration(intervalDuration + 5)
+          setTimeLeft(timeLeft + 5)
+        }} onMinus={x => {
+          setIntervalDuration(intervalDuration - 5);
+          setTimeLeft(timeLeft - 5)
+        }} />
+
       </div>
       <Timer />
     </div>

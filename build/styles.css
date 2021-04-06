@@ -31,8 +31,14 @@ body {
 
 .timer h1 {
   text-align: center;
-  font-size: 18em !important;
+  font-size: 18em;
   font-weight: 500;
+}
+
+@media only screen and (max-width: 648px) {
+  .timer h1 {
+    font-size: 14em !important;
+  }
 }
 
 button {
@@ -79,11 +85,11 @@ button:hover {
 }
 
 #plus {
-  width: 30px;
-  height: 30px;
+  width: 35px;
+  height: 35px;
   border-radius: 100px;
   text-align: center;
-  margin: 8px 5px 0px 5px;
+  margin: 5px 12px 0px 12px;
   background-color: #778ca3;
   color: #d1d8e0 !important;
 }
@@ -112,5 +118,5 @@ button:hover {
   color: #333;
   text-align: center;
   margin-top: 30px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }

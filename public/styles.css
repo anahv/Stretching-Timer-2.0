@@ -84,7 +84,7 @@ button:hover {
   background-color: #fd9644
 }
 
-#plus {
+.stepperButton {
   width: 35px;
   height: 35px;
   border-radius: 100px;
@@ -94,22 +94,22 @@ button:hover {
   color: #d1d8e0 !important;
 }
 
-#plus i {
+.stepperButton i {
   margin-right: 7px;
 }
 
-#plus:hover {
+.stepperButtonlus:hover {
   transform: none;
 }
 
-#intervalsLeft {
+.stepperContent {
   text-align: center;
   letter-spacing: 1px;
   font-size: 2em;
   color: #333;
 }
 
-#intervalsTitle {
+.stepperTitle {
   font-family: 'Roboto', sans-serif;
   font-size: 11px;
   text-transform: uppercase;
