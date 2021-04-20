@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
-import Button from "./Button"
-import Stepper from "./Stepper"
+import StyledStepper from "./Stepper"
+import ButtonsRow from "./ButtonsRow";
+import ControlButton from "./ControlButton";
+import Color from "./Theme/ColorPalette"
+import StyledHeader from "./Header"
+import StyledCountdown from "./Countdown"
+import StepperRow from "./Stepper/StepperRow"
+import { ThemeProvider } from "styled-components";
+import Theme from "./Theme"
 
 function App() {
   const initialIntervals = 30;
@@ -64,49 +71,45 @@ function App() {
 
     return (
       <div>
-        <div className="timer row">
-          <div className="col-md-12">
-            <h1>{timeLeft} </h1>
-          </div>
-        </div>
-        <div className="buttons row">
-          <Button id="start" title="Start" icon="play" onClick={start} data-testid="start"/>
-          <Button id="pause" title="Pause" icon="pause" onClick={pauseTimer} data-testid="pause"/>
-          <Button id="restart" title="Reset" icon="repeat" onClick={restartIntervals} data-testid="restart"/>
-          <Button id="testFail"/> 
-        </div>
+        <StyledCountdown>{timeLeft}</StyledCountdown>
+        <ButtonsRow>
+          <ControlButton id="start" title="Start" icon="play" onClick={start} data-testid="start" color={Color.green} />
+          <ControlButton id="pause" title="Pause" icon="pause" onClick={pauseTimer} data-testid="pause" color={Color.red} />
+          <ControlButton id="restart" title="Reset" icon="repeat" onClick={restartIntervals} data-testid="restart" color={Color.orange} />
+        </ButtonsRow>
       </div>
     );
   };
 
   return (
-    <div className="container-fluid">
-      <div className="row header">
-        <div className="col-md-12 ">
-          <h1> Interval Timer </h1>
-        </div>
-      </div>
+    <div>
 
-      <div className="row">
+      <StyledHeader>Interval Timer</StyledHeader>
 
-        <Stepper title="Number of intervals" content={remainingIntervals} content2={totalIntervals} onPlus={x => {
+      <StepperRow>
+        <StyledStepper title="Intervals Left" onPlus={x => {
           setTotalIntervals(totalIntervals + 1)
           setRemainingIntervals(remainingIntervals + 1)
         }} onMinus={x => {
           setTotalIntervals(totalIntervals - 1);
           setRemainingIntervals(remainingIntervals - 1)
-        }} />
+        }} >
+          {remainingIntervals} / {totalIntervals}
+        </StyledStepper>
 
-        <Stepper title="Interval Duration" content={intervalDuration} onPlus={x => {
+        <StyledStepper title="Interval Duration" onPlus={x => {
           setIntervalDuration(intervalDuration + 5)
           setTimeLeft(timeLeft + 5)
         }} onMinus={x => {
           setIntervalDuration(intervalDuration - 5);
           setTimeLeft(timeLeft - 5)
-        }} />
+        }}>
+          {intervalDuration}s
+        </StyledStepper>
+      </StepperRow>
 
-      </div>
       <Timer />
+
     </div>
   );
 }

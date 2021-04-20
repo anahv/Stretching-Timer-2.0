@@ -1,29 +1,29 @@
 import React from "react"
+import ButtonsRow from "../ButtonsRow"
+import StepperButton from "./StepperButton"
+import StyledStepperTitle from "./StepperTitle"
+import StyledStepperContent from "./StepperContent"
+import styled from "styled-components"
 
-function Stepper({title, content, content2, onPlus, onMinus, testId}) {
-
-    const stepperContent = content2 ? <>{content}  / {content2}</> : content
-
+function Stepper({className, title, children, onPlus, onMinus, testId}) {
     return (
-        <div className="col-md-3">
-            <p className="stepperTitle" data-testid={testId}>{title}</p>
-            <h2 className="stepperContent">
-                {stepperContent}
-            </h2>
-            <div className="buttons">
-                <button
-                    className="stepperButton"
-                    onClick={onMinus}>
-                    <i className="fa fa-minus" />
-                </button>
-                <button
-                    className="stepperButton"
-                    onClick={onPlus}>
-                    <i className="fa fa-plus" />
-                </button>
-            </div>
+        <div className={className}>
+            <StyledStepperTitle data-testid={testId}>{title}</StyledStepperTitle>
+            <StyledStepperContent>{children}</StyledStepperContent>
+            <ButtonsRow>
+                <StepperButton onClick={onMinus} icon="minus"/>
+                <StepperButton onClick={onPlus} icon="plus" />
+            </ButtonsRow>
         </div>
     )
 }
 
-export default Stepper
+const StyledStepper = styled(Stepper)`
+    display: flex;
+    flex-direction: column;
+`
+
+export default StyledStepper
+
+
+

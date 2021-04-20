@@ -14,8 +14,10 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import App from "./components/App"
+import {ThemeProvider} from "styled-components"
+import Theme from "./components/Theme"
 
 
 ReactDOM.render(
-    <App/>, document.getElementById("root")
+    <ThemeProvider theme={Theme}><App/></ThemeProvider>, document.getElementById("root")
 )

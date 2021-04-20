@@ -20,6 +20,10 @@ describe("Stepper", () => {
         expect(getByTestId(testStepperProps.testId)).toBeDefined
     })
 
+    it("has a plus and a minus stepper buttons", () => {
+        
+    })
+
 
 })
 

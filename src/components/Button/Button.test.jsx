@@ -9,11 +9,12 @@ describe("Button", () => {
         icon: "play",
         testId: "button", 
         color: "green", 
-        onClick: jest.fn()
+        onClick: jest.fn(),
+        id: "123"
     }
 
     it("shows a button", () => {
-        const {getByRole} = render(<Button/>)
+        const {getByRole} = render(<Button {...testButtonProps}/>)
         expect(getByRole("button")).toBeDefined
     }),
 
@@ -31,7 +32,7 @@ describe("Button", () => {
 
     it("has a color", () => {
         const {getByRole} = render(<Button {...testButtonProps}/>)
-        expect(getByRole("button").style.background).toBeDefined
+        expect(getByRole("button").style.background).toBe(testButtonProps.color)
     }), 
 
     it("handles an onClick function", () => {
