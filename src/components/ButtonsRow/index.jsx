@@ -4,19 +4,18 @@ import Devices from "../Theme/Devices"
 const ButtonsRow = styled.div`
     width: 100%;
     text-align: center;
-    display: flex; 
+    display: flex;
     flex-direction: row;
     justify-content: center;
 
     i {
         margin-left: 10px;
-        color: #333;
     } 
 
 
 
     @media ${Devices.tablet} {
-        flex-direction: column; 
+        flex-direction: column;
         button {
             margin: 20px 0px 20px 40px;
             width: 80%;

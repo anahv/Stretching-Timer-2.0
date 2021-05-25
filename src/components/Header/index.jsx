@@ -4,7 +4,7 @@ import styled from "styled-components"
 // const Header = ({className, children}) => <div className={className}>{children}</div>
 
 const StyledHeader = styled.div`
-  background-color: #fc5c65;
+  background-color: ${({ theme }) => theme.header};
   margin-left: -50px !important;
   margin-right: -50px !important;
   padding: 20px 32px;

@@ -10,8 +10,8 @@ const StepperButton = styled(Button)`
   border-radius: 100px;
   text-align: center;
   margin: 5px 12px 0px 12px;
-  background-color: #778ca3;
-  color: ${({ theme }) => theme.colors.grey};
+  background-color: ${({ theme }) => theme.stepperButton.background};
+  color: ${({ theme }) => theme.stepperButton.content};
   border: none;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
   i {

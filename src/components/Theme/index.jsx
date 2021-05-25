@@ -1,7 +1,13 @@
-import ColorPalette from "./ColorPalette"
+import lightTheme from "./lightTheme"
+import darkTheme from "./darkTheme"
 
-const Theme = {
-    colors: ColorPalette
-}
+// export default function(style) {
+//   if (style === "light") {
+//     return lightTheme
+//   }
+//   else {
+//     return darkTheme
+//   }
+// }
 
-export default Theme
+export default (style) => style === "light" ? lightTheme : darkTheme
