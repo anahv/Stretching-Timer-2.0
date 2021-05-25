@@ -15,7 +15,6 @@ font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 500;
-  color: #333;
   text-align: center;
   margin-top: 30px;
   margin-bottom: 8px;

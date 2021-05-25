@@ -8,6 +8,9 @@ import StyledCountdown from "./Countdown"
 import StepperRow from "./Stepper/StepperRow"
 import { ThemeProvider } from "styled-components";
 import Theme from "./Theme"
+import AppWrapper from "./AppWrapper"
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 function App() {
   const initialIntervals = 30;
@@ -18,6 +21,7 @@ function App() {
   const [remainingIntervals, setRemainingIntervals] = useState(totalIntervals);
   const [isActive, setIsActive] = useState(false);
   const [timeLeft, setTimeLeft] = useState(initialIntervalDuration);
+  const [theme, setTheme] = useState("light")
 
   const bringAudio = new Audio(
     "http://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a");
@@ -73,18 +77,30 @@ function App() {
       <div>
         <StyledCountdown>{timeLeft}</StyledCountdown>
         <ButtonsRow>
-          <ControlButton id="start" title="Start" icon="play" onClick={start} data-testid="start" color={Color.green} />
-          <ControlButton id="pause" title="Pause" icon="pause" onClick={pauseTimer} data-testid="pause" color={Color.red} />
-          <ControlButton id="restart" title="Reset" icon="repeat" onClick={restartIntervals} data-testid="restart" color={Color.orange} />
+          <ControlButton id="start" title="Start" icon="play" onClick={start} data-testid="start" color={ ({theme}) => theme.green } />
+          <ControlButton id="pause" title="Pause" icon="pause" onClick={pauseTimer} data-testid="pause" color={ ({theme}) => theme.red } />
+          <ControlButton id="restart" title="Reset" icon="repeat" onClick={restartIntervals} data-testid="restart" color={ ({theme}) => theme.orange } />
         </ButtonsRow>
       </div>
     );
   };
 
   return (
-    <div>
+    <ThemeProvider theme={Theme(theme)}>
+    <AppWrapper>
+      <StyledHeader>Interval Timer
 
-      <StyledHeader>Interval Timer</StyledHeader>
+      </StyledHeader>
+
+      <FormControlLabel
+      control={
+        <Switch
+        onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+        />}
+        label="DARK MODE"
+        labelPlacement="start"
+        labelStyle={{ fontSize: "10px"}}
+        />
 
       <StepperRow>
         <StyledStepper title="Intervals Left" onPlus={x => {
@@ -109,8 +125,8 @@ function App() {
       </StepperRow>
 
       <Timer />
-
-    </div>
+    </AppWrapper>
+    </ThemeProvider>
   );
 }
 

@@ -15,8 +15,6 @@ const StyledStepperContent = styled(StepperContent)`
   text-align: center;
   letter-spacing: 1px;
   font-size: 2em;
-  color: #333;
 `
 
 export default StyledStepperContent
-

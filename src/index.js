@@ -17,7 +17,6 @@ import App from "./components/App"
 import {ThemeProvider} from "styled-components"
 import Theme from "./components/Theme"
 
-
 ReactDOM.render(
-    <ThemeProvider theme={Theme}><App/></ThemeProvider>, document.getElementById("root")
+    <App/>, document.getElementById("root")
 )
