@@ -23,6 +23,44 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(initialIntervalDuration);
   const [theme, setTheme] = useState("light")
 
+  const [userPreferences, setUserPreferences] = useState({theme: "light"})
+
+  function updateUserPreferences() {
+    const newPreferences = {theme: userPreferences.theme === "light" ? "dark" : "light"}
+    setUserPreferences(newPreferences)
+    window.localStorage.setItem("userPreferences", JSON.stringify(newPreferences))
+  }
+  //
+  // async function getUserPreferences() {
+  //   try {
+  //     const response = await fetch("https://mftest.free.beeceptor.com/user-preferences?id=123")
+  //     const userPreferences = await response.json()
+  //     setUserPreferences(userPreferences)
+  //     console.log(userPreferences);
+  //   }
+  //   catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  useEffect(() => {
+    const storedUserPreferences = window.localStorage.getItem("userPreferences")
+    console.log(storedUserPreferences);
+    storedUserPreferences && setUserPreferences(JSON.parse(storedUserPreferences))
+    if (!storedUserPreferences) {
+      console.log("no stored user preferences");
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setUserPreferences({theme: "dark"})
+  } else {
+    setUserPreferences({theme: "light"})
+  }
+  }
+    // getUserPreferences()
+    // const savedUserPreferences = JSON.parse(window.localStorage.getItem("userPreferences"))
+    // const savedUserPreferences = JSON.parse(window.localStorage.getItem("userPreferences"))
+    // savedUserPreferences && setUserPreferences(savedUserPreferences)
+  }, [])
+
   const bringAudio = new Audio(
     "http://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a");
   const popAudio = new Audio(
@@ -86,7 +124,7 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={Theme(theme)}>
+    <ThemeProvider theme={Theme(userPreferences.theme)}>
     <AppWrapper>
       <StyledHeader>Interval Timer
 
@@ -95,8 +133,9 @@ function App() {
       <FormControlLabel
       control={
         <Switch
-        onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+        onChange={updateUserPreferences}
         />}
+        checked={userPreferences.theme === "dark"}
         label="DARK MODE"
         labelPlacement="start"
         labelStyle={{ fontSize: "10px"}}
