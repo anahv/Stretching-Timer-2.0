@@ -23,6 +23,7 @@ function App() {
   const [timeLeft, setTimeLeft] = useState(initialIntervalDuration);
   const [theme, setTheme] = useState("light")
 
+
   const [userPreferences, setUserPreferences] = useState({theme: "light"})
 
   function updateUserPreferences() {
@@ -60,6 +61,7 @@ function App() {
     // const savedUserPreferences = JSON.parse(window.localStorage.getItem("userPreferences"))
     // savedUserPreferences && setUserPreferences(savedUserPreferences)
   }, [])
+
 
   const bringAudio = new Audio(
     "http://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a");
@@ -124,7 +126,9 @@ function App() {
   };
 
   return (
+
     <ThemeProvider theme={Theme(userPreferences.theme)}>
+    <ThemeProvider theme={Theme(theme)}>
     <AppWrapper>
       <StyledHeader>Interval Timer
 
@@ -136,6 +140,8 @@ function App() {
         onChange={updateUserPreferences}
         />}
         checked={userPreferences.theme === "dark"}
+        onChange={() => setTheme(theme === "light" ? "dark" : "light")}
+        />}
         label="DARK MODE"
         labelPlacement="start"
         labelStyle={{ fontSize: "10px"}}
